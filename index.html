@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0A0C0F">
+  <meta name="description" content="Lockin - Sportolói teljesítmény- és egészségkövető webalkalmazás">
+  <title>Lockin</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- ======================================================================
+       TÉMA INITIALIZÁLÁS (VILLANÁSMENTES BETÖLTÉS) / THEME INITIALIZATION
+       ====================================================================== -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('lockin_theme') || 'auto';
+        var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+        var resolved = saved === 'auto' ? (prefersLight ? 'light' : 'dark') : saved;
+        document.documentElement.setAttribute('data-theme', resolved);
+        document.documentElement.setAttribute('data-theme-setting', saved);
+
+        var metaThemeColor = document.querySelector('meta[name="theme-color"]');
+        if (metaThemeColor) {
+          metaThemeColor.setAttribute('content', resolved === 'light' ? '#F6F7F9' : '#0A0C0F');
+        }
+      } catch (err) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.setAttribute('data-theme-setting', 'auto');
+      }
+    })();
+  </script>
+</head>
+<body>
+  <!-- ======================================================================
+       INLINE SVG SPRITE (IKONOK) / INLINE SVG ICON SPRITE
+       ====================================================================== -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;" aria-hidden="true">
+    <!-- Fő navigációs ikonok -->
+    <symbol id="icon-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+      <polyline points="9 22 9 12 15 12 15 22"/>
+    </symbol>
+
+    <symbol id="icon-lab" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M10 2v7.31L4.15 19.3A2 2 0 0 0 5.86 22h12.28a2 2 0 0 0 1.71-2.7L14 9.31V2"/>
+      <line x1="8.5" y1="2" x2="15.5" y2="2"/>
+      <line x1="14" y1="9.3" x2="10" y2="9.3"/>
+    </symbol>
+
+    <symbol id="icon-journal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+      <line x1="9" y1="7" x2="15" y2="7"/>
+      <line x1="9" y1="11" x2="13" y2="11"/>
+    </symbol>
+
+    <symbol id="icon-more" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="1.5"/>
+      <circle cx="19" cy="12" r="1.5"/>
+      <circle cx="5" cy="12" r="1.5"/>
+    </symbol>
+
+    <!-- Lab pillér ikonok -->
+    <symbol id="icon-physical" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+    </symbol>
+
+    <symbol id="icon-recovery" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </symbol>
+
+    <symbol id="icon-nutrition" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm-2-6a1 1 0 0 1 2 0v3a1 1 0 0 1-2 0v-3z"/>
+    </symbol>
+
+    <symbol id="icon-mental" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <circle cx="12" cy="12" r="6"/>
+      <circle cx="12" cy="12" r="2"/>
+    </symbol>
+
+    <!-- Általános felületi ikonok -->
+    <symbol id="icon-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="19" y1="12" x2="5" y2="12"/>
+      <polyline points="12 19 5 12 12 5"/>
+    </symbol>
+
+    <symbol id="icon-chevron-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="9 18 15 12 9 6"/>
+    </symbol>
+
+    <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12"/>
+    </symbol>
+
+    <symbol id="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="12" y1="5" x2="12" y2="19"/>
+      <line x1="5" y1="12" x2="19" y2="12"/>
+    </symbol>
+
+    <symbol id="icon-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="12" y1="16" x2="12" y2="12"/>
+      <line x1="12" y1="8" x2="12.01" y2="8"/>
+    </symbol>
+
+    <symbol id="icon-empty" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="4" width="18" height="16" rx="2"/>
+      <line x1="3" y1="10" x2="21" y2="10"/>
+      <line x1="8" y1="2" x2="8" y2="6"/>
+      <line x1="16" y1="2" x2="16" y2="6"/>
+      <path d="M9 15h6"/>
+    </symbol>
+
+    <symbol id="icon-chevron-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"/>
+    </symbol>
+
+    <symbol id="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="18" y1="6" x2="6" y2="18"/>
+      <line x1="6" y1="6" x2="18" y2="18"/>
+    </symbol>
+
+    <symbol id="icon-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="3 6 5 6 21 6"/>
+      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+      <line x1="10" y1="11" x2="10" y2="17"/>
+      <line x1="14" y1="11" x2="14" y2="17"/>
+    </symbol>
+
+    <!-- Activity kategória ikonok -->
+    <symbol id="icon-cat-training" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+    </symbol>
+
+    <symbol id="icon-cat-recovery" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+    </symbol>
+
+    <symbol id="icon-cat-mental" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+      <path d="M2 12h20"/>
+    </symbol>
+
+    <symbol id="icon-cat-event" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+      <line x1="16" y1="2" x2="16" y2="6"/>
+      <line x1="8" y1="2" x2="8" y2="6"/>
+      <line x1="3" y1="10" x2="21" y2="10"/>
+    </symbol>
+  </svg>
+
+  <div class="app-layout">
+    <!-- ====================================================================
+         MOBIL FEJLÉC (< 900px) / MOBILE HEADER
+         ==================================================================== -->
+    <header class="mobile-header" role="banner">
+      <a href="#/home" class="brand-link" aria-label="Lockin főoldal">
+        <div class="brand-logo-container">
+          <img class="brand-logo-img" alt="Lockin" data-logo-img />
+          <span class="brand-wordmark" data-logo-wordmark>Lockin</span>
+        </div>
+      </a>
+      <div class="header-status-wrap">
+        <span class="mode-badge" data-mode-label>Athlete</span>
+      </div>
+    </header>
+
+    <!-- ====================================================================
+         FŐ NAVIGÁCIÓ (Mobilon alsó fülsáv, Asztalin bal oldalsáv) / MAIN NAVIGATION
+         ==================================================================== -->
+    <nav id="app-nav" class="app-nav" aria-label="Fő navigáció">
+      <div class="nav-brand-desktop">
+        <a href="#/home" class="brand-link" aria-label="Lockin főoldal">
+          <div class="brand-logo-container">
+            <img class="brand-logo-img" alt="Lockin" data-logo-img />
+            <span class="brand-wordmark" data-logo-wordmark>Lockin</span>
+          </div>
+        </a>
+        <div class="sidebar-mode-indicator">
+          <span class="mode-badge-pulse" aria-hidden="true"></span>
+          <span class="mode-name" data-mode-label>Athlete mód</span>
+        </div>
+      </div>
+
+      <ul class="nav-list" role="list">
+        <li class="nav-item">
+          <a href="#/home" class="nav-link" data-nav-route="home">
+            <svg class="nav-icon" aria-hidden="true"><use href="#icon-home"></use></svg>
+            <span class="nav-label" data-i18n="nav.home">Home</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#/lab" class="nav-link" data-nav-route="lab">
+            <svg class="nav-icon" aria-hidden="true"><use href="#icon-lab"></use></svg>
+            <span class="nav-label" data-i18n="nav.lab">Performance Lab</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#/journal" class="nav-link" data-nav-route="journal">
+            <svg class="nav-icon" aria-hidden="true"><use href="#icon-journal"></use></svg>
+            <span class="nav-label" data-i18n="nav.journal">Journal</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#/more" class="nav-link" data-nav-route="more">
+            <svg class="nav-icon" aria-hidden="true"><use href="#icon-more"></use></svg>
+            <span class="nav-label" data-i18n="nav.more">More</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="nav-footer-desktop">
+        <div class="system-status-indicator">
+          <span class="system-status-dot" aria-hidden="true"></span>
+          <span class="system-status-text">v0.6.0 • Lockin</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ====================================================================
+         FŐ TARTALOMTERÜLET / MAIN CONTENT AREA
+         ==================================================================== -->
+    <main id="main-content" class="main-content" tabindex="-1">
+      <div id="app-view" class="app-view" aria-live="polite">
+        <!-- Dinamikus nézet renderelődik ide app.js által -->
+      </div>
+    </main>
+  </div>
+
+  <!-- ====================================================================
+       ACTIVITY MODAL KONTÉNER / ACTIVITY MODAL ROOT
+       ==================================================================== -->
+  <div id="activity-modal-root" class="modal-root" aria-live="assertive"></div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
